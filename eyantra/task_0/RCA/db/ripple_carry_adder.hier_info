@@ -1,0 +1,45 @@
+|ripple_carry_adder
+a[0] => a[0].IN1
+a[1] => a[1].IN1
+b[0] => b[0].IN1
+b[1] => b[1].IN1
+cin => cin.IN1
+sum[0] <= full_adder:FA0.port3
+sum[1] <= full_adder:FA1.port3
+c_out <= full_adder:FA1.port4
+
+
+|ripple_carry_adder|full_adder:FA0
+a => sum.OUTPUTSELECT
+a => c_out.OUTPUTSELECT
+b => sum.OUTPUTSELECT
+b => sum.OUTPUTSELECT
+b => c_out.OUTPUTSELECT
+b => c_out.OUTPUTSELECT
+c_in => sum.DATAB
+c_in => sum.DATAA
+c_in => c_out.DATAA
+c_in => c_out.DATAB
+c_in => sum.DATAB
+c_in => sum.DATAA
+sum <= sum.DB_MAX_OUTPUT_PORT_TYPE
+c_out <= c_out.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|ripple_carry_adder|full_adder:FA1
+a => sum.OUTPUTSELECT
+a => c_out.OUTPUTSELECT
+b => sum.OUTPUTSELECT
+b => sum.OUTPUTSELECT
+b => c_out.OUTPUTSELECT
+b => c_out.OUTPUTSELECT
+c_in => sum.DATAB
+c_in => sum.DATAA
+c_in => c_out.DATAA
+c_in => c_out.DATAB
+c_in => sum.DATAB
+c_in => sum.DATAA
+sum <= sum.DB_MAX_OUTPUT_PORT_TYPE
+c_out <= c_out.DB_MAX_OUTPUT_PORT_TYPE
+
+

@@ -1,0 +1,3 @@
+Info (10281): Verilog HDL Declaration information at fsm_practice.v(3): object "green" differs only in case from object "GREEN" in the same scope File: /home/bhavesh/Quartus/eyantra/practice/fsm_practice.v Line: 3
+Info (10281): Verilog HDL Declaration information at fsm_practice.v(3): object "yellow" differs only in case from object "YELLOW" in the same scope File: /home/bhavesh/Quartus/eyantra/practice/fsm_practice.v Line: 3
+Info (10281): Verilog HDL Declaration information at fsm_practice.v(4): object "red" differs only in case from object "RED" in the same scope File: /home/bhavesh/Quartus/eyantra/practice/fsm_practice.v Line: 4
