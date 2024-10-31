@@ -37,10 +37,13 @@ def main():
 
         # Append binary representations
         binary_representation += int_to_bin_str(node_id, 5)  # 5 bits for node ID
-        binary_representation += weight_to_binary(weight)      # 2 bits for weight
+        binary_representation += weight_to_binary(weight)    # 2 bits for weight
+
+    # Ensure the binary representation is 32 bits long by padding with zeros
+    binary_representation = binary_representation.ljust(32, '0')
 
     # Display the complete binary representation
-    print(f'Complete binary representation: {binary_representation}')
+    print(f'Complete 32-bit binary representation: {binary_representation}')
 
 if __name__ == "__main__":
     main()
