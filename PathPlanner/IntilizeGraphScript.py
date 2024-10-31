@@ -1,43 +1,46 @@
-class NodeData:
-    def __init__(self):
-        self.connection_count = 0  # Number of connections (0-4)
-        self.connections = []       # List of dictionaries for connections
+def int_to_bin_str(value, bits):
+    """Convert an integer to a binary string with leading zeros."""
+    return format(value, f'0{bits}b')
 
-    def add_connection(self, node, weight):
-        if len(self.connections) < 4:  # Limit to 4 connections
-            self.connections.append({'node': node, 'weight': weight})
-
-    def __repr__(self):
-        # Generate string representation for node connections
-        output = f'graph[0].connection_count = {self.connection_count};\n'
-        for idx, conn in enumerate(self.connections, start=1):
-            output += f'graph[0].connections.conn{self.connection_count}.node{idx} = {conn["node"]};\n'
-            output += f'graph[0].connections.conn{self.connection_count}.weight{idx} = {conn["weight"]};\n'
-        return output
-
+def weight_to_binary(weight):
+    """Convert weight (1-4) to a 2-bit binary string."""
+    return int_to_bin_str(weight - 1, 2)  # Adjust to make 1 = 00, 2 = 01, 3 = 10, 4 = 11
 
 def main():
-    # Array for 32 nodes
-    graph = [NodeData() for _ in range(32)]
+    # Prompt for number of nodes (2 bits)
+    num_nodes = int(input("Enter the number of nodes (1-4): "))
+    
+    if num_nodes < 1 or num_nodes > 4:
+        print("Invalid number of nodes. Please enter a value between 1 and 4.")
+        return
+    
+    # Start building the binary representation
+    binary_representation = int_to_bin_str(num_nodes - 1, 2)  # First 2 bits for number of nodes (0-3)
 
-    # Loop through each node to get data
-    for i in range(32):
-        count = int(input(f'Enter number of connections for node {i} (0-4): '))
+    # Collect node IDs and weights
+    for i in range(num_nodes):
+        # Input for node ID (5 bits)
+        while True:
+            node_id = int(input(f'Enter node ID for node {i + 1} (0-31): '))
+            if 0 <= node_id <= 31:
+                break
+            else:
+                print("Invalid node ID. Please enter a value between 0 and 31.")
         
-        if count < 0 or count > 4:
-            print("Invalid number of connections. Please enter between 0 and 4.")
-            continue
-        
-        graph[i].connection_count = count
+        # Input for weight (1-4)
+        while True:
+            weight = int(input(f'Enter weight for node {i + 1} (1-4): '))
+            if 1 <= weight <= 4:
+                break
+            else:
+                print("Invalid weight. Please enter a value between 1 and 4.")
 
-        for j in range(count):
-            node = int(input(f'Enter connected node ID for connection {j + 1}: '))
-            weight = int(input(f'Enter weight (0-3) for connection {j + 1}: '))
-            graph[i].add_connection(node, weight)
+        # Append binary representations
+        binary_representation += int_to_bin_str(node_id, 5)  # 5 bits for node ID
+        binary_representation += weight_to_binary(weight)      # 2 bits for weight
 
-        # Display packed data for the current node
-        print(graph[i])
-
+    # Display the complete binary representation
+    print(f'Complete binary representation: {binary_representation}')
 
 if __name__ == "__main__":
     main()
